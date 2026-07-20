@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: labelchange-service
+
+  profiles:
+    active: dev
+
+  kafka:
+    bootstrap-servers: localhost:9092
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+    consumer:
+      group-id: changeorder-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+
+      properties:
+        spring.json.trusted.packages: "*"
+
+security:
+  jwt:
+    secret: TnU2d0dRV2xYQ2FMaVlWa0QxUXR5N2tUZXJjRk1sRm5nRjBqZlV5Yz0=
+    accessTokenExpiration: 86400000
+    issuer: LabelFlow
+
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
+
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+
+
+server:
+  port: 8081
